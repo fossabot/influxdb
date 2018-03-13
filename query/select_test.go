@@ -2866,7 +2866,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_AdditionRHS_Unsigned",
 			Statement: `SELECT i + 9223372036854775808 FROM cpu`,
-			Err:       `cannot use + with an integer and unsigned`,
+			Err:       `type error: i::integer + 9223372036854775808: cannot use + with an integer and unsigned literal`,
 		},
 		{
 			Name:      "Unsigned_AdditionRHS_Unsigned",
@@ -2943,7 +2943,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_AdditionLHS_Unsigned",
 			Statement: `SELECT 9223372036854775808 + i FROM cpu`,
-			Err:       `cannot use + with unsigned and an integer`,
+			Err:       `type error: 9223372036854775808 + i::integer: cannot use + with an integer and unsigned literal`,
 		},
 		{
 			Name:      "Unsigned_AdditionLHS_Unsigned",
@@ -3002,7 +3002,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_Add_Unsigned",
 			Statement: `SELECT i + u FROM cpu`,
-			Err:       `cannot use + between an integer and unsigned, an explicit cast is required`,
+			Err:       `type error: i::integer + u::unsigned: cannot use + between an integer and unsigned, an explicit cast is required`,
 		},
 		{
 			Name:      "Float_MultiplicationRHS_Number",
@@ -3167,7 +3167,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_Multiply_Unsigned",
 			Statement: `SELECT i * u FROM cpu`,
-			Err:       `cannot use * between an integer and unsigned, an explicit cast is required`,
+			Err:       `type error: i::integer * u::unsigned: cannot use * between an integer and unsigned, an explicit cast is required`,
 		},
 		{
 			Name:      "Float_SubtractionRHS_Number",
@@ -3235,7 +3235,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_SubtractionRHS_Unsigned",
 			Statement: `SELECT i - 9223372036854775808 FROM cpu`,
-			Err:       `cannot use - with an integer and unsigned`,
+			Err:       `type error: i::integer - 9223372036854775808: cannot use - with an integer and unsigned literal`,
 		},
 		// Skip Unsigned_SubtractionRHS_Integer because it would result in underflow.
 		{
@@ -3304,7 +3304,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_SubtractionLHS_Unsigned",
 			Statement: `SELECT 9223372036854775808 - i FROM cpu`,
-			Err:       `cannot use - with unsigned and an integer`,
+			Err:       `type error: 9223372036854775808 - i::integer: cannot use - with an integer and unsigned literal`,
 		},
 		{
 			Name:      "Unsigned_SubtractionLHS_Unsigned",
@@ -3363,7 +3363,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_Subtract_Unsigned",
 			Statement: `SELECT i - u FROM cpu`,
-			Err:       `cannot use - between an integer and unsigned, an explicit cast is required`,
+			Err:       `type error: i::integer - u::unsigned: cannot use - between an integer and unsigned, an explicit cast is required`,
 		},
 		{
 			Name:      "Float_DivisionRHS_Number",
@@ -3431,7 +3431,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_DivisionRHS_Unsigned",
 			Statement: `SELECT i / 9223372036854775808 FROM cpu`,
-			Err:       `cannot use / with an integer and unsigned`,
+			Err:       `type error: i::integer / 9223372036854775808: cannot use / with an integer and unsigned literal`,
 		},
 		{
 			Name:      "Unsigned_DivisionRHS_Unsigned",
@@ -3508,7 +3508,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_DivisionLHS_Unsigned",
 			Statement: `SELECT 9223372036854775808 / i FROM cpu`,
-			Err:       `cannot use / with unsigned and an integer`,
+			Err:       `type error: 9223372036854775808 / i::integer: cannot use / with an integer and unsigned literal`,
 		},
 		{
 			Name:      "Unsigned_DivisionLHS_Unsigned",
@@ -3567,7 +3567,7 @@ func TestSelect_BinaryExpr(t *testing.T) {
 		{
 			Name:      "Integer_Divide_Unsigned",
 			Statement: `SELECT i / u FROM cpu`,
-			Err:       `cannot use / between an integer and unsigned, an explicit cast is required`,
+			Err:       `type error: i::integer / u::unsigned: cannot use / between an integer and unsigned, an explicit cast is required`,
 		},
 		{
 			Name:      "Integer_BitwiseAndRHS",
@@ -3741,9 +3741,9 @@ func TestSelect_BinaryExpr_NilValues(t *testing.T) {
 						t.Fatalf("unexpected source: %s", m.Name)
 					}
 					return &FloatIterator{Points: []query.FloatPoint{
-						{Name: "cpu", Time: 0 * Second, Value: 20, Aux: []interface{}{float64(20), nil}},
-						{Name: "cpu", Time: 5 * Second, Value: 10, Aux: []interface{}{float64(10), float64(15)}},
-						{Name: "cpu", Time: 9 * Second, Value: 19, Aux: []interface{}{nil, float64(5)}},
+						{Name: "cpu", Time: 0 * Second, Aux: []interface{}{float64(20), nil}},
+						{Name: "cpu", Time: 5 * Second, Aux: []interface{}{float64(10), float64(15)}},
+						{Name: "cpu", Time: 9 * Second, Aux: []interface{}{nil, float64(5)}},
 					}}, nil
 				},
 			}
