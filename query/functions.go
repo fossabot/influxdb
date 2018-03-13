@@ -10,6 +10,28 @@ import (
 	"github.com/influxdata/influxql"
 )
 
+type FunctionTypeMapper struct{}
+
+func (FunctionTypeMapper) MapType(measurement *influxql.Measurement, field string) influxql.DataType {
+	return influxql.Unknown
+}
+
+func (FunctionTypeMapper) CallType(name string, args []influxql.DataType) (influxql.DataType, error) {
+	// If the function is not implemented by the embedded field mapper, then
+	// see if we implement the function and return the type here.
+	switch name {
+	case "mean", "median", "integral", "stddev":
+		return influxql.Float, nil
+	case "count":
+		return influxql.Integer, nil
+	case "elapsed":
+		return influxql.Integer, nil
+	default:
+		// TODO(jsternberg): Do not use default for this.
+		return args[0], nil
+	}
+}
+
 // FloatMeanReducer calculates the mean of the aggregated points.
 type FloatMeanReducer struct {
 	sum   float64
