@@ -1,4 +1,5 @@
 # InfluxDB [![Circle CI](https://circleci.com/gh/influxdata/influxdb/tree/master.svg?style=svg)](https://circleci.com/gh/influxdata/influxdb/tree/master) [![Go Report Card](https://goreportcard.com/badge/github.com/influxdata/influxdb)](https://goreportcard.com/report/github.com/influxdata/influxdb) [![Docker pulls](https://img.shields.io/docker/pulls/library/influxdb.svg)](https://hub.docker.com/_/influxdb/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffossas%2Finfluxdb.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffossas%2Finfluxdb?ref=badge_shield)
 
 ## An Open-Source Time Series Database
 
@@ -69,3 +70,7 @@ If you're feeling adventurous and want to contribute to InfluxDB, see our [contr
 ## Looking for Support?
 
 InfluxDB offers a number of services to help your project succeed. We offer Developer Support for organizations in active development, Managed Hosting to make it easy to move into production, and Enterprise Support for companies requiring the best response times, SLAs, and technical fixes. Visit our [support page](https://influxdata.com/services/) or contact [sales@influxdb.com](mailto:sales@influxdb.com) to learn how we can best help you succeed.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffossas%2Finfluxdb.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffossas%2Finfluxdb?ref=badge_large)
